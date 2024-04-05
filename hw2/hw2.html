@@ -15172,8 +15172,8 @@ The following code follows the provided code from the <code>Models</code> sectio
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">dS</span><span class="p">(</span><span class="n">x</span><span class="p">;</span><span class="n">params</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cdf</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">F</span><span class="p">,</span><span class="n">x</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">params</span><span class="o">.</span><span class="n">β</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">params</span><span class="o">.</span><span class="n">γδ</span><span class="p">))</span>
-<span class="n">res_wage</span><span class="p">(</span><span class="n">wres</span><span class="p">;</span><span class="w"> </span><span class="n">params</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wres</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="n">γb</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="n">β</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="n">γλ</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">quadgk</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">dS</span><span class="p">(</span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="n">params</span><span class="p">),</span><span class="w"> </span><span class="n">wres</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">dS</span><span class="p">(</span><span class="n">x</span><span class="p">;</span><span class="n">params</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cdf</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">F</span><span class="p">,</span><span class="n">x</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">params</span><span class="o">.</span><span class="n">β</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">γδ</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">exp</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">γδ</span><span class="p">)))))</span>
+<span class="n">res_wage</span><span class="p">(</span><span class="n">wres</span><span class="p">;</span><span class="w"> </span><span class="n">params</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wres</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="n">γb</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="n">β</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">γλ</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">exp</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">γλ</span><span class="p">)))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">quadgk</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">dS</span><span class="p">(</span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="n">params</span><span class="p">),</span><span class="w"> </span><span class="n">wres</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="k">function</span><span class="w"> </span><span class="n">solve_res_wage</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 <span class="w">   </span><span class="p">(;</span><span class="n">γb</span><span class="p">,</span><span class="w"> </span><span class="n">γδ</span><span class="p">,</span><span class="w"> </span><span class="n">γλ</span><span class="p">,</span><span class="w"> </span><span class="n">γμ</span><span class="p">,</span><span class="w"> </span><span class="n">γσ</span><span class="p">,</span><span class="w"> </span><span class="n">σζ</span><span class="p">,</span><span class="w"> </span><span class="n">β</span><span class="p">,</span><span class="w"> </span><span class="n">F</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span>
@@ -15207,7 +15207,7 @@ The following code follows the provided code from the <code>Models</code> sectio
 
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>76.58267183852657</pre>
+<pre>10.114433516680384</pre>
 </div>
 
 </div>
@@ -15446,12 +15446,10 @@ $$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>9.47086705187016e-19</pre>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>  0.348346 seconds (252.60 k allocations: 15.619 MiB, 99.89% compilation time)
+</pre>
 </div>
-
 </div>
 
 <div class="jp-OutputArea-child">
@@ -15460,10 +15458,12 @@ $$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>  0.345903 seconds (240.43 k allocations: 14.785 MiB, 2.54% gc time, 99.89% compilation time)
-</pre>
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>13.381992811773488</pre>
 </div>
+
 </div>
 
 </div>
@@ -15646,7 +15646,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>  0.701886 seconds (88.44 k allocations: 46.320 MiB, 0.16% gc time)
+<pre>  0.809812 seconds (175.30 k allocations: 58.690 MiB, 2.90% gc time, 15.02% compilation time)
 </pre>
 </div>
 </div>
@@ -15660,7 +15660,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>-46.08152749843541</pre>
+<pre>-0.21693188195124377</pre>
 </div>
 
 </div>
@@ -15714,10 +15714,12 @@ $$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>  1.375148 seconds (168.73 k allocations: 89.152 MiB, 0.17% gc time)
-</pre>
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>-0.43676681942315765</pre>
 </div>
+
 </div>
 
 <div class="jp-OutputArea-child">
@@ -15726,12 +15728,10 @@ $$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>-89.99020329889164</pre>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>  1.304146 seconds (192.90 k allocations: 102.648 MiB, 0.96% gc time)
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -15784,7 +15784,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>  0.735301 seconds (94.48 k allocations: 49.719 MiB, 0.20% gc time)
+<pre>  0.735972 seconds (107.53 k allocations: 57.237 MiB, 1.78% gc time)
 </pre>
 </div>
 </div>
@@ -15798,7 +15798,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>-61.15080320832178</pre>
+<pre>0.08955150572422921</pre>
 </div>
 
 </div>
@@ -15852,10 +15852,12 @@ $$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>  1.206264 seconds (143.59 k allocations: 75.977 MiB, 0.17% gc time)
-</pre>
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>-1.1621245770475448</pre>
 </div>
+
 </div>
 
 <div class="jp-OutputArea-child">
@@ -15864,12 +15866,10 @@ $$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>-118.35249992667723</pre>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>  1.122388 seconds (165.46 k allocations: 88.053 MiB, 1.10% gc time)
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -15922,7 +15922,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>  0.172441 seconds (20.11 k allocations: 10.535 MiB)
+<pre>  0.159588 seconds (22.94 k allocations: 12.199 MiB)
 </pre>
 </div>
 </div>
@@ -15936,7 +15936,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>-54.71333569985358</pre>
+<pre>-0.12991475450328355</pre>
 </div>
 
 </div>
@@ -15990,12 +15990,10 @@ $$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>-104.15486254857974</pre>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>  0.283505 seconds (40.18 k allocations: 21.389 MiB)
+</pre>
 </div>
-
 </div>
 
 <div class="jp-OutputArea-child">
@@ -16004,10 +16002,12 @@ $$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>  0.284208 seconds (35.01 k allocations: 18.516 MiB, 3.04% gc time)
-</pre>
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>-0.20585669913247026</pre>
 </div>
+
 </div>
 
 </div>
@@ -16060,7 +16060,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>  0.171159 seconds (22.10 k allocations: 11.620 MiB)
+<pre>  0.171590 seconds (25.18 k allocations: 13.389 MiB)
 </pre>
 </div>
 </div>
@@ -16074,7 +16074,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>-64.02406033078701</pre>
+<pre>0.01656194958439439</pre>
 </div>
 
 </div>
@@ -16129,7 +16129,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>  0.321953 seconds (38.97 k allocations: 20.623 MiB, 1.96% gc time)
+<pre>  0.303948 seconds (45.05 k allocations: 23.981 MiB)
 </pre>
 </div>
 </div>
@@ -16143,7 +16143,7 @@ $$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>-129.73592496034922</pre>
+<pre>-0.6162156842537421</pre>
 </div>
 
 </div>
